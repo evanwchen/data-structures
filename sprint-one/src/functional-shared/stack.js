@@ -5,19 +5,20 @@ var Stack = function() {
   someInstance.len = 0;
   someInstance.storage = {};
 
-  _.extend(someInstance, Stack.stackMethods);
+  _.extend(someInstance, stackMethods);
 
   return someInstance;
 };
 
-Stack.stackMethods = {};
+// Stack.stackMethods = {};
+var stackMethods = {};
 
-Stack.stackMethods.push = function(val) {
+stackMethods.push = function(val) {
   this.len++;
   this.storage[this.len] = val;
 };
 
-Stack.stackMethods.pop = function() {
+stackMethods.pop = function() {
   if (this.len > 0) {
     var temp = this.storage[this.len];
     delete this.storage[this.len];
@@ -26,7 +27,7 @@ Stack.stackMethods.pop = function() {
   }
 };
 
-Stack.stackMethods.size = function() {
+stackMethods.size = function() {
   return this.len;
 };
 
