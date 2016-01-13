@@ -3,33 +3,27 @@ var Stack = function() {
   // but try not not reference your old code in writing the new style.
   var someInstance = {};
   someInstance.len = 0;
+  someInstance.storage = {};
 
   _.extend(someInstance, Stack.stackMethods);
 
   return someInstance;
 };
 
-// _.extend = function(obj) {
-//     each(slice.call(arguments, 1), function(source) {
-//       if (source) {
-//         for (var prop in source) {
-//           obj[prop] = source[prop];
-//         }
-//       }
-//     });
-//     return obj;
-//   };
-
-//var stackMethods = {};
-
 Stack.stackMethods = {};
 
 Stack.stackMethods.push = function(val) {
-
+  this.storage[this.len] = val;
+  this.len++;
 };
 
 Stack.stackMethods.pop = function() {
-  
+  if (this.len > 0) {
+    var temp = this.storage[this.len];
+    delete this.storage[this.len];
+    this.len--;
+    return temp;
+  }
 };
 
 Stack.stackMethods.size = function() {
