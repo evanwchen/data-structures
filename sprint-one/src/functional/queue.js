@@ -16,6 +16,13 @@ var Queue = function() {
   };
 
   someInstance.dequeue = function() {
+    if (queueSize > 0) {
+      var temp = storage[start];
+      delete storage[start];
+      start++;
+      queueSize = end - start;
+      return temp;
+    }
   };
 
   someInstance.size = function() {
