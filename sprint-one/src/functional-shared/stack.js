@@ -13,8 +13,8 @@ var Stack = function() {
 Stack.stackMethods = {};
 
 Stack.stackMethods.push = function(val) {
-  this.storage[this.len] = val;
   this.len++;
+  this.storage[this.len] = val;
 };
 
 Stack.stackMethods.pop = function() {
