@@ -15,11 +15,12 @@ var Queue = function() {
 
 var queueMethods = {};
 
-queueMethods.push = function(val) {
-
+queueMethods.enqueue = function(val) {
+  this.end++;
+  this.queueSize = this.end - this.begin;
 };
 
-queueMethods.pop = function() {
+queueMethods.dequeue = function() {
 
 };
 
