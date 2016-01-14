@@ -13,7 +13,9 @@ var Queue = function() {
 var queueMethods = {};
 
 queueMethods.enqueue = function(val){
-
+  this.storage[this.end] = val;
+  this.end++;
+  this.len = this.end - this.beg;
 };
 
 queueMethods.dequeue = function() {
