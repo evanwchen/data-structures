@@ -6,11 +6,17 @@ var Stack = function() {
 };
 
 Stack.prototype.push = function(val) {
-
+  this.len++;
+  this.storage[this.len] = val;
 };
 
 Stack.prototype.pop = function() {
-
+  if (this.len > 0) {
+    var temp = this.storage[this.len];
+    delete this.storage[this.len];
+    this.len--;
+    return temp;
+  }
 };
 
 Stack.prototype.size = function() {
