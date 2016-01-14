@@ -19,9 +19,10 @@ var LinkedList = function() {
   };
 
   list.removeHead = function() {
+    var oldHead = list.head.value;
     // if no values in LinkedList
     if (list.head === null && list.tail === null) {
-      return;
+      return oldHead;
     }
     // if one value in LinkedList
     else if (list.head === list.tail) {
@@ -31,7 +32,8 @@ var LinkedList = function() {
     // else
     else {
       list.head = list.head.next;
-    } 
+    }
+    return oldHead;
   };
 
   list.contains = function(target) {
