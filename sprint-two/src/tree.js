@@ -13,12 +13,12 @@ var Tree = function(value) {
 var treeMethods = {};
 
 treeMethods.addChild = function(value) {
-  this.children.push(value);
+  this.children.push(Object.create(Tree(value)));
 };
 
 treeMethods.contains = function(target) {
   for (var i = 0; i < this.children.length; i++) {
-    if (this.children[i] === target) {
+    if (this.children[i].value === target) {
       return true;
     }
     if (Array.isArray(this.children[i])) {
