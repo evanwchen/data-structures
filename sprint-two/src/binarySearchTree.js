@@ -53,7 +53,16 @@ binTreeMethods.contains = function(target) {
 };
 
 binTreeMethods.depthFirstLog = function(cb) {
-
+  var traverse = function(node) {
+    cb(node.value);
+    if (node.right !== null) {
+      traverse(node.right);
+    }
+    if (node.left !== null) {
+      traverse(node.left);
+    }
+  };
+  traverse(this);
 };
 
 /*
