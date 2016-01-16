@@ -7,11 +7,10 @@ var HashTable = function() {
 
 HashTable.prototype.insert = function(k, v) {
   var index = getIndexBelowMaxForKey(k, this._limit);
-  // var newTuple = new LimitedArray(2);
-  // this._storage.set(index, newTuple);
-   if (this._storage.get(index) === undefined) {
-     this._storage.set(index, []);
-   }
+
+  if (this._storage.get(index) === undefined) {
+   this._storage.set(index, []);
+  }
   var temp = this._storage.get(index);
   temp.push([k,v]);
   this._storage.set(index,temp);
@@ -20,10 +19,9 @@ HashTable.prototype.insert = function(k, v) {
 HashTable.prototype.retrieve = function(k) {
   var index = getIndexBelowMaxForKey(k, this._limit);
   var temp = this._storage.get(index);
-  var found = false;
+  var found;
   _.each(temp, function(val) {
     if (val[0] === k) {
-    console.log(val);
       found = val[1];
     }
   });
@@ -33,19 +31,21 @@ HashTable.prototype.retrieve = function(k) {
 
 HashTable.prototype.remove = function(k) {
   var index = getIndexBelowMaxForKey(k, this._limit);
-  delete this._storage.get(index);
-
-  // this._storage[index].each(function(val, key, collection) {
-  //   if (val[0] === k) {
-  //     this._storage[index].splice(key, 1);
-  //   }
-  // });
+  var temp = this._storage.get(index);
+  var that = this;
+  _.each(temp, function(val, key) {
+    if (val[0] === k) {
+      that._storage.set(index, undefined);
+    }
+  });
 };
 
-
-
 /*
- * Complexity: What is the time complexity of the above functions?
+ *  Complexity: What is the time complexity of the above functions?
+
+    insert: O(1) or constant
+
+    retrieve: O(n) or linear
+
+    remove: O(n) or linear
  */
-
-
