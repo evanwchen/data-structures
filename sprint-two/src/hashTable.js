@@ -7,47 +7,38 @@ var HashTable = function() {
 };
 
 HashTable.prototype.insert = function(k, v) {
-  // if (this.count > this._limit*0.75) {
-  //   var tempArray = [];
-  //   this._storage.each(function(val)) {
-  //     tempArray.push(val);
-  //   };
-  // }
-
   var index = getIndexBelowMaxForKey(k, this._limit);
 
-  if (this._storage.get(index) === undefined) {
-   this._storage.set(index, []);
-  }
-  var temp = this._storage.get(index);
+  var bucket = this._storage.get(index) || [];
   
-  if (temp.length === 0) {
-    temp.push([k,v]);
-  } else {
-    _.each(temp, function(val) {
-      if (temp[0] === k) {
-        temp[1] = v;
-      } else {
-        temp.push([k,v]);
-      }
-    });    
+  for (var i = 0; i < bucket.length; i++) {
+    var block = bucket[i];
+    if (block[0] === k) {
+      block[1] = v;
+      return;
+    }
   }
 
-  this._storage.set(index,temp);
-  //this._count++;
+  bucket.push([k,v]);
+  this._storage.set(index,bucket);
+  this._count++;
+
+  if (this._count > this._limit*0.75) {
+    this.resize(this, 'double');
+  }
 };
 
 HashTable.prototype.retrieve = function(k) {
   var index = getIndexBelowMaxForKey(k, this._limit);
-  var temp = this._storage.get(index);
-  var found;
-  _.each(temp, function(val) {
-    if (val[0] === k) {
-      found = val[1];
+  var bucket = this._storage.get(index) || [];
+  
+  for (var i = 0; i < bucket.length; i++) {
+    if (bucket[i][0] === k) {
+      return bucket[i][1];
     }
-  });
+  }
 
-  return found;
+  return undefined;
 };
 
 HashTable.prototype.remove = function(k) {
@@ -60,12 +51,22 @@ HashTable.prototype.remove = function(k) {
     }
   });
   this._count--;
+  if (this._count < this._limit*0.25) {
+    this.resize(this, 'halve');
+  }
 };
 
-HashTable.prototype.extend = function(hash) {
-  // var newHashTable = new HashTable();
-  // newHashTable._limit = hash._limit * 2;
-  // newHashTable._storage = LimitedArray(newHashTable._limit);  
+HashTable.prototype.resize = function(hash, action) {
+  if (action === 'double' || action === 'halve') {
+    this._limit = action === 'double' ? this._limit*2 : this._limit/2;
+    this._storage = LimitedArray(this._limit);
+    this._storage.each(function(val) {
+      this.insert(val[0], val[1]);
+    });
+  } else {
+    throw 'No such action as' + action;
+  }
+  return this;
 };
 
 /*
