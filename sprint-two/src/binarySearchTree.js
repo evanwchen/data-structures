@@ -1,7 +1,7 @@
 var BinarySearchTree = function(value) {
 
   var someTree = Object.create(binTreeMethods);
-  someTree.val = value;
+  someTree.value = value;
   someTree.left = null;
   someTree.right = null;
   // someTree.leaves = {left: null, right: null};
@@ -21,7 +21,7 @@ binTreeMethods.insert = function(val) {
     // node.right = temp
   var leaf = BinarySearchTree(val);
   var traverse = function(node, leaf) {
-    if (leaf.val >= node.val) {
+    if (leaf.value >= node.value) {
       if (node.right === null) {
         node.right = leaf;
       }
