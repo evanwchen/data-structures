@@ -4,7 +4,6 @@ var BinarySearchTree = function(value) {
   someTree.value = value;
   someTree.left = null;
   someTree.right = null;
-  // someTree.leaves = {left: null, right: null};
   return someTree;
 
 };
@@ -12,13 +11,6 @@ var BinarySearchTree = function(value) {
 var binTreeMethods = {};
 
 binTreeMethods.insert = function(val) {
-  // create a new node called newLeaf and assign it equal to new BinarySearchTree w/ val as argument
-  // assign a var next = undefined;
-  // start at 'this'. 
-  // if val > node, then next = node.right 
-    // while (next.left !== null && next.right !== null) 
-      // next = node.right;
-    // node.right = temp
   var leaf = BinarySearchTree(val);
   var traverse = function(node, leaf) {
     if (leaf.value >= node.value) {
@@ -41,8 +33,23 @@ binTreeMethods.insert = function(val) {
   traverse(this, leaf);
 };
 
-binTreeMethods.contains = function(val) {
-  //returns boolean
+binTreeMethods.contains = function(target) {
+  var found = false;
+  var traverse = function(node) {
+    if (target === node.value) {
+      found = true;
+    }
+    else if (target > node.value) {
+      if (node.right !== null) {
+        traverse(node.right);
+      }
+    }
+    else if (target < node.value) {
+      traverse(node.left);
+    }
+  };
+  traverse(this);
+  return found;
 };
 
 binTreeMethods.depthFirstLog = function(cb) {
