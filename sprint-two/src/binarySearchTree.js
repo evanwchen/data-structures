@@ -67,4 +67,13 @@ binTreeMethods.depthFirstLog = function(cb) {
 
 /*
  * Complexity: What is the time complexity of the above functions?
+
+.insert = O(log(n)), but only if the binary tree will rebalance. 
+          In its current state, it is O(n).
+
+.contains = O(log(n)), but only if the binary tree will rebalance. 
+            In its current state, it is O(n).
+
+.depthFirstLog = O(n)
+
  */
