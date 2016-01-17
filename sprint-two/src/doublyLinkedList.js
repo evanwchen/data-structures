@@ -53,12 +53,38 @@ var DoublyLinkedList = function() {
     return false;
   };
 
-  list.addToHead = function() {
-
+  list.addToHead = function(value) {
+    var newItem = new Node(value);
+    
+    // if no values
+    if (list.head === null) {
+      list.head = newItem;
+      list.tail = newItem;
+    }
+    // if one or more values
+    else {
+      list.head.previous = newItem;
+      newItem.next = list.head;
+      list.head = newItem;
+    }
   };
 
   list.removeTail = function() {
-
+    var oldTail = list.tail.value;
+    // if no values in LinkedList
+    if (list.tail === null && list.head === null) {
+      return oldTail;
+    }
+    // if one value in LinkedList
+    else if (list.tail === list.head) {
+      list.head = null;
+      list.tail = null;
+    }
+    // else
+    else {
+      list.tail = list.tail.previous;
+    }
+    return oldTail;
   };
 
   return list;

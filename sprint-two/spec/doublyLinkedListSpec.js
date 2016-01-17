@@ -63,5 +63,20 @@ describe('doublyLinkedList', function() {
     expect(doublyLinkedList.head.next.previous.value).to.equal(5);
   });
 
+  it('should add a value to the head', function(){
+    doublyLinkedList.addToTail(4);
+    doublyLinkedList.addToHead(5);
+    doublyLinkedList.addToHead(6);
+    expect(doublyLinkedList.head.value).to.equal(6);
+  });
+
+  it('should remove a value from the tail', function(){
+    doublyLinkedList.addToTail(4);
+    doublyLinkedList.addToHead(5);
+    doublyLinkedList.addToHead(6);
+    doublyLinkedList.removeTail();
+    expect(doublyLinkedList.tail.value).to.equal(5);
+  });
+
   // add more tests here to test the functionality of doublyLinkedList
 });
