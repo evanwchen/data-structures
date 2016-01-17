@@ -65,6 +65,26 @@ binTreeMethods.depthFirstLog = function(cb) {
   traverse(this);
 };
 
+binTreeMethods.breadthFirstLog = function(cb) {
+  var temp = [this];
+  // while current is not equal to null 
+  while (temp.length > 0) {  
+    _.each(temp, function(val) {
+      cb(val.value);
+    });
+    temp = [];
+    for (var prop in temp) {
+      cb(prop.value);
+      if (prop.right !== null) {
+        temp.push(prop.right);
+      } else if (prop.left !== null) {
+        temp.push(prop.left);
+      }
+    }
+  }
+
+};
+
 /*
  * Complexity: What is the time complexity of the above functions?
 
