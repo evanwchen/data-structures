@@ -67,22 +67,19 @@ binTreeMethods.depthFirstLog = function(cb) {
 
 binTreeMethods.breadthFirstLog = function(cb) {
   var temp = [this];
-  // while current is not equal to null 
   while (temp.length > 0) {  
+    var childNodes = [];
     _.each(temp, function(val) {
       cb(val.value);
-    });
-    temp = [];
-    for (var prop in temp) {
-      cb(prop.value);
-      if (prop.right !== null) {
-        temp.push(prop.right);
-      } else if (prop.left !== null) {
-        temp.push(prop.left);
+      if (val.left !== null) {
+        childNodes.push(val.left);
       }
-    }
+      if (val.right !== null) {
+        childNodes.push(val.right);
+      } 
+    });
+    temp = childNodes;
   }
-
 };
 
 /*
